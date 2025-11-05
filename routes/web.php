@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\{
     UsuarioController,
     ProveedorController,
@@ -54,7 +55,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('etiquetas/{lote}/descargar', [EtiquetaController::class, 'descargar'])
         ->name('etiquetas.descargar');
 
+    Route::get('/seed-admin', function () {
+    Artisan::call('db:seed', ['--class' => 'AdminUserSeeder']);
+    return 'Usuario administrador creado correctamente.';
 });
+
+});
+
 
 
 require __DIR__.'/auth.php';
